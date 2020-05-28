@@ -1,29 +1,30 @@
 <?php include('templates/header.html');   ?>
 
 <body>
-  <h1 align="center">Entrega 3: App design and development</h1>
+  <h1 align="center">Splinter app</h1>
   <p style="text-align:center;">Poner contexto aca......</p>
 
   <br>
 
-  <h3 align="center"> Para registrarse ingrese sus datos:</h3>
+  <h3 align="center"> Eres nuevo en splinter?:</h3>
 
-  <form align="center" action="consultas/ingreso_datos.php" method="post">
-    nombre:
-    <input type="text" name="Nombre">
-    <br/>
-    correo:
-    <input type="text" name="Correo">
-    <br/>
-    direccion:
-    <input type="text" name="Direccion">
-    <br/><br/>
-    <input type="submit" value="Buscar">
+  <form align="center" action="consultas/registrar.php" method="post">
+    <input type="submit" value="registrarme">
   </form>
   
   <br>
   <br>
   <br>
+
+  <h3 align="center"> Inicie sesion:</h3>
+
+  <form align="center" action="consultas/ingresar.php" method="post">
+    <input type="submit" value="ingresar">
+  </form>
+
+<br>
+<br>
+<br>
 
   <h3 align="center"> Las ciudades que pertenecen al pais:</h3>
 
