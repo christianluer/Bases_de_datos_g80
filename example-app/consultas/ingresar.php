@@ -6,7 +6,7 @@
 
 <h3 align="center"> Ingrese datos:</h3>
 
-<form align="center" action="consultas/inicio_sesion.php" method="post">
+<form align="center" action="inicio_sesion.php" method="post">
     nombre:
     <input type="text" name="Nombre">
     <br/>

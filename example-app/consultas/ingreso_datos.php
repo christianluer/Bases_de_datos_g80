@@ -1,31 +1,42 @@
 <?php include('../templates/header.html');   ?>
 
 <body>
-
+    <h1 align="center">Splinter app</h1>
 <?php
   #Llama a conexión, crea el objeto PDO y obtiene la variable $db
   require("../config/conexion.php");
+  $username = $_POST["username"];
   $nombre = $_POST["nombre"];
   $correo = $_POST["correo"];
   $direccion = $_POST["direccion"];
-	
- 	$query = "SELECT usuarios.user_id, usuarios.nombre, sum(viajes.precio) FROM usuarios, tickets, viajes, comprar, ticket_viaje WHERE date(tickets.fecha_compra) >= '$fecha_ini' AND date(tickets.fecha_compra) <= '$fecha_fini' AND comprar.ticket_id = tickets.ticket_id AND usuarios.user_id = comprar.user_id AND ticket_viaje.ticket_id = tickets.ticket_id AND viajes.viaje_id = ticket_viaje.viaje_id GROUP BY usuarios.user_id;";
-	$result = $db -> prepare($query);
-	$result -> execute();
-	$datos = $result -> fetchAll();
-?>
+  $clave = $_POST["clave"];  
+  $query = "SELECT count(nombre) FROM usuarios WHERE nombre LIKE '$nombre%' GROUP BY nombre;";
+     
+  $result = $db -> prepare($query);
+  $result -> execute();
+  $cuenta = $result -> fetch();
+  $cuenta2 = $cuenta[0];
+  echo "<h3>$cuenta2 este es el numero</h3>";
+  if ($cuenta[0] == 0) {
+    $numero_max = "SELECT MAX(user_id) FROM usuarios;";
+    $num_grande = $db -> prepare($numero_max);
+    $num_grande -> execute();
+    $valor = $num_grande -> fetch();
+    $valo = $valor[0] + 1;
+    echo "<h3>$valo este es el numero</h3>";
+    $ingresar_data = "INSERT INTO usuarios (user_id, username,nombre, correo, direccion) VALUES ($valo, $username, $nombre, $correo, $direccion);
+    INSERT INTO claves (user_id, clave) VALUES ($valo, $clave, FALSE);";
+    $ingresar_datos = $db -> prepare($ingresar_data);
+    $ingresar_datos -> execute();
+    echo "<h3>Sus datos fueron guardados</h3>";
+    }else {
+        echo "<h2> Usuario ya existente</h2>";
+        echo "<h3> Inicie sesion:</h3>";
+        echo '<form action="ingresar.php" method="get">
+            <input type="submit" value="ingresar">
+        </form>';  
+    }
 
-	    <table>
-    <tr>
-      <th>ID_usuario</th>
-      <th>nombre_usuario</th>
-      <th>gasto_en_fechas</th>
-    </tr>
-<?php
-	  foreach ($datos as $data) {
-  	  	echo "<tr> <td>$data[0]</td> <td>$data[1]</td> <td>$data[2]</td> </tr>";
-	  }
-?>
-	  </table>
 
+    ?>
 <?php include('../templates/footer.html'); ?>

@@ -4,7 +4,10 @@
 
 <h1 align="center"> Eres nuevo en splinter?</h1>
 
-<form align="center" action="consultas/ingreso_datos.php" method="post">
+<form align="center" action="ingreso_datos.php" method="post">
+    username:
+    <input type="text" name="Username">
+    <br/>
     nombre:
     <input type="text" name="Nombre">
     <br/>
